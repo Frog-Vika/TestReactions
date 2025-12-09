@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_home_to_record"
             app:destination="@id/recordFragment" />
+        <action
+            android:id="@+id/action_home_to_start"
+            app:destination="@id/startFragment" />
     </fragment>
 
     <fragment
@@ -41,9 +44,9 @@
         android:id="@+id/recordFragment"
         android:name="com.example.testreactions.RecordFragment"
         android:label="Second">
-        <!--<action
-            android:id="@+id/action_second_to_nex"
-            app:destination="@id/nexFragment" />-->
+        <action
+            android:id="@+id/action_record_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 </navigation>

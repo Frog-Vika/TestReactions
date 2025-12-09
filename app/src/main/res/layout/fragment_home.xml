@@ -44,4 +44,15 @@
         app:backgroundTint="#FF00FFFF"
         app:cornerRadius="20dp" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/home_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/home_button_3"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:backgroundTint="#FF7FFFD4"
+        app:cornerRadius="8dp" />
+
 </LinearLayout>

@@ -45,6 +45,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(R.id.action_home_to_record)
             }
 
+            binding.homeButton3.setOnClickListener {
+                //findNavController().popBackStack()
+                findNavController().navigate(R.id.action_home_to_start)
+            }
+
         }
     }
 

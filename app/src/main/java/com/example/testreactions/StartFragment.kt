@@ -34,6 +34,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
 
         loginButton.setOnClickListener {
             viewModel.name.value = NameInput.text.toString()
+            viewModel.time.value = 0L
 
             findNavController().navigate(R.id.action_start_to_home)
 

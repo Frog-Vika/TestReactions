@@ -1,51 +1,41 @@
 package com.example.testreactions
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.testreactions.databinding.FragmentRecordBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.ViewModelProvider
-import com.example.testreactions.databinding.FragmentPlayBinding
-
 private lateinit var viewModel: LoginViewModel
+
+
 class RecordFragment : Fragment(R.layout.fragment_record) {
-
-    private var _binding: FragmentRecordBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRecordBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        val btnBack = view.findViewById<Button>(R.id.btnBack)
 
-        /*viewModel.name.observe(viewLifecycleOwner) { playerName ->
-            //binding.recordText.text = "Играем $playerName"
+        btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_record_to_home)
+            //findNavController().popBackStack()
         }
-        viewModel.time.observe(viewLifecycleOwner) { playerTime ->
-            //binding.recordText.text = "Играем $playerName"
-        }*/
 
-        val playerName = viewModel.name.value
-        val playerTime = viewModel.time.value
-        binding.recordText.text = "$playerName: $playerTime мс"
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        RecordsRepository.addResult(viewModel.name.value, viewModel.time.value)
+        //RecordsRepository.addResult("Liza", 190)
+        //RecordsRepository.addResult("Artem", 250)
+
+        val records = RecordsRepository.getTopResults()
+
+        val adapter = RecordAdapter(records)
+        recyclerView.adapter = adapter
+
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

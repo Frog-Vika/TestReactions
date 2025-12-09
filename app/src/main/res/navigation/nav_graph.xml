@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment"
+    tools:ignore="InvalidNavigation">
+
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.testreactions.StartFragment"
+        android:label="First">
+        <action
+            android:id="@+id/action_start_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.testreactions.HomeFragment"
+        android:label="Second">
+        <action
+            android:id="@+id/action_home_to_play"
+            app:destination="@id/playFragment" />
+        <action
+            android:id="@+id/action_home_to_record"
+            app:destination="@id/recordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playFragment"
+        android:name="com.example.testreactions.PlayFragment"
+        android:label="Second">
+        <action
+            android:id="@+id/action_play_to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.example.testreactions.RecordFragment"
+        android:label="Second">
+        <!--<action
+            android:id="@+id/action_second_to_nex"
+            app:destination="@id/nexFragment" />-->
+    </fragment>
+
+</navigation>

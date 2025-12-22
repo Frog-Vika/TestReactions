@@ -7,27 +7,27 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.testreactions.databinding.FragmentPlayBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlin.random.Random
-//import java.util.logging.Handler
 
-private lateinit var viewModel: LoginViewModel
 
 class PlayFragment : Fragment(R.layout.fragment_play) {
-    //private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: LoginViewModel
 
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
 
     private var startTime = 0L
+
+    private var numberOfClick = 0
+    private var numberOfClickRef = 0
     private var signalStarted = false
     private var waitingForSignal = false
 
-    //private val handler = Handler(Looper.getMainLooper())
+    private val handler = Handler(Looper.getMainLooper())
 
 
     override fun onCreateView(
@@ -39,12 +39,12 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         return binding.root
     }
 
-    private val handler = android.os.Handler()
+    //private val handler = android.os.Handler()
     private val updateRunnable = object : Runnable {
         override fun run() {
             if (signalStarted) {
                 val current = SystemClock.elapsedRealtime() - startTime
-                binding.Text.text = "Прошло: ${current} мс"
+                binding.timeText.text = "Прошло: ${current} мс"
                 handler.postDelayed(this, 16) // обновление 60 раз в секунду
             }
         }
@@ -76,7 +76,9 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
                     errorClick()
                 }
                 signalStarted -> {
-                    stopTimer()
+                    numberOfClick++
+                    if (numberOfClick == numberOfClickRef) {stopTimer()}
+                    //stopTimer()
                 }
             }
         }
@@ -90,7 +92,14 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
             requireContext().getColor(R.color.white)
         )
 
-        binding.Text.text = "Ждте сигнала ..."
+        binding.Text.apply {
+            setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 30f)
+            setTextColor(android.graphics.Color.BLACK)
+            text = "Ждте сигнала ..."
+        }
+
+        binding.timeText.text = ""
+        //binding.Text.text = "Ждте сигнала ..."
 
         val delay = Random.nextLong(1000, 5000)
 
@@ -101,11 +110,22 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         waitingForSignal = false
         signalStarted = true
 
+        numberOfClickRef = Random.nextInt(1, 6)
+        numberOfClick = 0
+
         binding.root.setBackgroundColor(
             requireContext().getColor(R.color.signal_color)
         )
 
-        binding.Text.text = "ЖМИ!!!"
+        binding.Text.apply {
+            setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 50f)
+            setTextColor(android.graphics.Color.RED)
+            text = "ЖМИ $numberOfClickRef раз!!!"
+        }
+
+        //binding.Text.text = "ЖМИ $numberOfClickRef раз!!!"
+        //binding.Text.textSize = 50f
+        //binding.Text.textColors = #FFFA8072
 
         /*handler.postDelayed({
             binding.root.setBackgroundColor(
@@ -127,7 +147,12 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         binding.root.setBackgroundColor(
             requireContext().getColor(R.color.error_color)
         )
-        binding.Text.text = "Слишком рано"
+        binding.Text.apply {
+            setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 30f)
+            setTextColor(android.graphics.Color.BLACK)
+            text = "Слишком рано"
+        }
+        //binding.Text.text = "Слишком рано"
 
         startTime = SystemClock.elapsedRealtime()
 
@@ -142,21 +167,34 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
             requireContext().getColor(R.color.white)
         )
 
-        binding.Text.text = "Нажми, чтобы начать"
+        binding.Text.apply {
+            setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 30f)
+            setTextColor(android.graphics.Color.BLACK)
+            text = "Нажми чтобы снова начать"
+        }
+
+        //binding.Text.text = "Нажми, чтобы начать"
     }
     private fun stopTimer() {
         signalStarted = false
-        //handler.removeCallbacks(updateTimerRunnable)
+        handler.removeCallbacks(updateRunnable)
 
         val finalTime = SystemClock.elapsedRealtime() - startTime
-        if ((viewModel.time.value > finalTime) or (viewModel.time.value == 0L)) {viewModel.time.value = finalTime}
+        //if ((viewModel.time.value > finalTime) or (viewModel.time.value == 0L)) {viewModel.time.value = finalTime}
+        viewModel.saveBestTime(finalTime)
         binding.root.setBackgroundColor(
             requireContext().getColor(R.color.white)
         )
-        binding.Text.text = "Результат: ${finalTime} мс\nНажми снова чтобы начать"
+        binding.timeText.text = "Результат: ${finalTime} мс"
+        binding.Text.apply {
+            setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 30f)
+            setTextColor(android.graphics.Color.BLACK)
+            text = "Нажми чтобы снова начать"
+        }
     }
 
     override fun onDestroyView() {
+        handler.removeCallbacksAndMessages(null)
         super.onDestroyView()
         _binding = null
     }

@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:text="@string/screen_text_5"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/Text"
@@ -25,7 +26,16 @@
         android:layout_height="wrap_content"
         android:text="@string/screen_text_2"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/go_home_button"

@@ -33,8 +33,9 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         val loginButton = view.findViewById<Button>(R.id.button1)
 
         loginButton.setOnClickListener {
-            viewModel.name.value = NameInput.text.toString()
-            viewModel.time.value = 0L
+            viewModel.setName(NameInput.text.toString())
+            //viewModel.name.value = NameInput.text.toString()
+            //viewModel.time.value = 0L
 
             findNavController().navigate(R.id.action_start_to_home)
 

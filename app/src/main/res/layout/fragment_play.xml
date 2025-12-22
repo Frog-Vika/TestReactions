@@ -35,7 +35,7 @@
         android:text="@string/go_home_button"
         android:textColor="@color/black"
         android:textSize="25sp"
-        app:backgroundTint="#FF90EE90"
+        app:backgroundTint="#FF1E90FF"
         app:cornerRadius="8dp" />
 
 </LinearLayout>

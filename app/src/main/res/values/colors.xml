@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="signal_color">#FF90EE90</color>
+    <color name="error_color">#FFFA8072</color>
 </resources>

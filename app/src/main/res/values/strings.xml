@@ -10,12 +10,15 @@
     <string name="screen_text_3">Ввход в приложение</string>
     <string name="screen_text_4">Привет</string>
     <string name="screen_text_5">Играем</string>
+    <string name="screen_text_6">Выберите режим:</string>
     <string name="screen_button_2">Start</string>
     <string name="screen_button_3">Дальше</string>
 
     <string name="home_button_1">Играть</string>
     <string name="home_button_2">Таблица рекордов</string>
     <string name="home_button_3">Регистрация</string>
+    <string name="one_click_button">1</string>
+    <string name="n_click_button">N</string>
     <string name="go_home_button">Домой</string>
     <string name="home_text">Выберете действие</string>
 

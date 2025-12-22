@@ -26,6 +26,7 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
     private var numberOfClickRef = 0
     private var signalStarted = false
     private var waitingForSignal = false
+    private var gameMode = false
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -67,6 +68,18 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
             findNavController().navigate(R.id.action_play_to_home)
         }
 
+        binding.oneClickButton.setOnClickListener {
+            gameMode = false
+            updateButtonStyles()
+            resetGame()
+        }
+
+        binding.nClickButton.setOnClickListener {
+            gameMode = true
+            updateButtonStyles()
+            resetGame()
+        }
+
         binding.root.setOnClickListener {
             when {
                 !waitingForSignal && ! signalStarted -> {
@@ -77,6 +90,11 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
                 }
                 signalStarted -> {
                     numberOfClick++
+                    binding.Text.apply {
+                        setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 50f)
+                        setTextColor(android.graphics.Color.RED)
+                        text = "$numberOfClick из $numberOfClickRef"
+                    }
                     if (numberOfClick == numberOfClickRef) {stopTimer()}
                     //stopTimer()
                 }
@@ -84,9 +102,25 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         }
     }
 
+
+    private fun updateButtonStyles() {
+        if (gameMode) {
+            binding.nClickButton.alpha = 1.0f
+            binding.oneClickButton.alpha = 0.5f
+        } else {
+            binding.nClickButton.alpha = 0.5f
+            binding.oneClickButton.alpha = 1.0f
+        }
+    }
+
     private fun startWaitingForSignal() {
         waitingForSignal = true
         signalStarted = false
+
+        binding.modeButtonsContainer.visibility = View.GONE
+        binding.goHomeButton.visibility = View.GONE
+        binding.Text2.visibility = View.GONE
+
 
         binding.root.setBackgroundColor(
             requireContext().getColor(R.color.white)
@@ -99,7 +133,6 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         }
 
         binding.timeText.text = ""
-        //binding.Text.text = "Ждте сигнала ..."
 
         val delay = Random.nextLong(1000, 5000)
 
@@ -110,7 +143,7 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         waitingForSignal = false
         signalStarted = true
 
-        numberOfClickRef = Random.nextInt(1, 6)
+        numberOfClickRef = if (gameMode) Random.nextInt(1, 6) else 1
         numberOfClick = 0
 
         binding.root.setBackgroundColor(
@@ -120,18 +153,11 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         binding.Text.apply {
             setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 50f)
             setTextColor(android.graphics.Color.RED)
-            text = "ЖМИ $numberOfClickRef раз!!!"
+            if (gameMode) {
+                text = "ЖМИ $numberOfClickRef раз!!!"
+            }
+            else text = "ЖМИ"
         }
-
-        //binding.Text.text = "ЖМИ $numberOfClickRef раз!!!"
-        //binding.Text.textSize = 50f
-        //binding.Text.textColors = #FFFA8072
-
-        /*handler.postDelayed({
-            binding.root.setBackgroundColor(
-                requireContext().getColor(R.color.white)
-            )
-        }, 100)*/
 
 
         startTime = SystemClock.elapsedRealtime()
@@ -163,6 +189,10 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         waitingForSignal = false
         signalStarted = false
 
+        binding.modeButtonsContainer.visibility = View.VISIBLE
+        binding.goHomeButton.visibility = View.VISIBLE
+        binding.Text2.visibility = View.VISIBLE
+
         binding.root.setBackgroundColor(
             requireContext().getColor(R.color.white)
         )
@@ -177,6 +207,11 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
     }
     private fun stopTimer() {
         signalStarted = false
+
+        binding.modeButtonsContainer.visibility = View.VISIBLE
+        binding.goHomeButton.visibility = View.VISIBLE
+        binding.Text2.visibility = View.VISIBLE
+
         handler.removeCallbacks(updateRunnable)
 
         val finalTime = SystemClock.elapsedRealtime() - startTime

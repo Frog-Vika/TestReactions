@@ -48,4 +48,46 @@
         app:backgroundTint="#FF1E90FF"
         app:cornerRadius="8dp" />
 
+    <TextView
+        android:id="@+id/Text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/screen_text_6"
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
+    <LinearLayout
+        android:id="@+id/modeButtonsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/one_click_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/one_click_button"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:backgroundTint="#FF48D1CC"
+            app:cornerRadius="20dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/n_click_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/n_click_button"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:backgroundTint="#FF48D1CC"
+            app:cornerRadius="20dp" />
+    </LinearLayout>
+
 </LinearLayout>

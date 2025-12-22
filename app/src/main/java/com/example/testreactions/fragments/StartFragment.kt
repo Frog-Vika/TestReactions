@@ -1,18 +1,20 @@
-package com.example.testreactions
+package com.example.testreactions.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import android.widget.EditText
 import android.widget.Button
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.testreactions.R
+import com.example.testreactions.ViewModel
 
 class StartFragment : Fragment(R.layout.fragment_start) {
 
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +28,7 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         super.onViewCreated(view, savedInstanceState)
 
         //viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[ViewModel::class.java]
 
 
         val NameInput = view.findViewById<EditText>(R.id.NameInput)

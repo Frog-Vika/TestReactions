@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testreactions.data.PlayerEntity
 
-class RecordAdapter(private val records: List<RecordItem>) :
+class RecordAdapter(private val records: List<PlayerEntity>) :
     RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
 
     class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

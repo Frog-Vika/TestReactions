@@ -15,7 +15,7 @@ import kotlin.random.Random
 
 
 class PlayFragment : Fragment(R.layout.fragment_play) {
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: ViewModel
 
     private var _binding: FragmentPlayBinding? = null
     private val binding get() = _binding!!
@@ -57,7 +57,7 @@ class PlayFragment : Fragment(R.layout.fragment_play) {
         //val name = viewModel.name.value
         //binding.nameText.text = "Привет ${name}"
 
-        viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[ViewModel::class.java]
 
         viewModel.name.observe(viewLifecycleOwner) { playerName ->
             binding.nameText.text = "Играем $playerName"

@@ -1,4 +1,4 @@
-package com.example.testreactions
+package com.example.testreactions.fragments
 
 import android.os.Bundle
 import android.os.SystemClock
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.example.testreactions.databinding.FragmentPlayBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.testreactions.R
+import com.example.testreactions.ViewModel
 import kotlin.random.Random
 
 
